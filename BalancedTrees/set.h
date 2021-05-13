@@ -3,41 +3,37 @@
 //
 // TYPEDEFS for the set<Item> class:
 //  set<Item>::value_type
-//      set<Item>::value_type is the data type of the items in the set. It may be any of the
-//      C++ built-in types (int, char, etc.), or a class with a default constructor, a copy
-//      constructor, an assignment operator, and a less-than operator forming a strict
-//      weak ordering.
+//      set<Item>::value_type은 set내에 존재하는 item의 데이터 타입이다. 이 타입 정보에는 C++의 내장(built-in) 타입(int, char 등)이나 
+//      디폴트 생성자, 복사 생성자, 대입(=) 연산자, strict weak ordering을 형성하는 less-than(<) 연산자를 갖는 클래스가 올 수 있다.
 //
 // CONSTRUCTOR for the set<Item> class:
 //  set()
-//      Postcondition: The set is empty.
+//      Postcondition: set은 비어있다.
 //
 // MODIFICATION MEMBER FUNCTIONS for the set<Item> class:
 //  void clear()
-//      Postcondition: The set is empty.
+//      Postcondition: set은 비어있다.
 //
 //  bool insert(const Item& entry)
-//      Postcondition: If an equal entry was already in the set, the set is unchanged and the
-//      return value is false. Otherwise, entry was added to the set and the return value is true.
-//      This is slightly different than the C++ Standard Library set (see Appendix H).
+//      Postcondition: 만약 set 안에 이미 존재하는 값이 entry라면, set에 변동은 없으며 false를 반환한다.
+//      그렇지 않다면, entry값은 set에 추가되고 true를 반환한다. 이것은 C++ STL의 set과 약간의 차이가 있다.
 //
 //  size_t erase(const Item& target)
-//      Postcondition: If target was in the set, then it has been removed from the set and the
-//      return value is 1. Otherwise the set is unchanged and the return value is zero.
+//      Postcondition: set 안에 target이 존재한다면 그 값을 set에서 삭제하고 1을 반환한다. 그렇지 않다면, set에 변동은 없으며 0을 반환한다.
 //
 // CONSTANT MEMBER FUNCTIONS for the Set<Item> class:
 //  size_t count(const Item& target) const
-//      Postcondition: Returns the number of items equal to the target (either 0 or 1 for a set).
+//      Postcondition: set내에 존재하는 target과 동일한 값의 개수를 반환한다.(set의 경우 그 값은 0 또는 1이다.)
 //
 //  bool empty() const
-//      Postcondition: Returns true if the set is empty; otherwise returns false.
+//      Postcondition: 비어있는 set이라면 true를 반환하고 그렇지 않다면 false를 반환한다.
 //
 // VALUE SEMANTICS for the set<Item> class:
-//  Assignments and the copy constructor may be used with set<Item> objects.
+//  대입과 복사 생성자는 set<Item> 객체에서 사용될 수 있다.
 //
 // DYNAMIC MEMORY USAGE by the set<Item> class:
-//  If there is insufficient dynamic memory, then the following functions throw bad_alloc:
-//  The constructors, insert, and the assignment operator.
+//  동적 메모리가 부족한 경우에는 아래 함수들이 bad_alloc 에러를 던질 수 있다.
+//  생성자, insert 함수, 대입(=) 연산자
 #ifndef MAIN_SAVITCH_SET_H
 #define MAIN_SAVITCH_SET_H
 #include <cstdlib> // Provides size_t
