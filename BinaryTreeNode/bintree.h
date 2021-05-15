@@ -13,7 +13,7 @@
 //      binary_tree_node<Item>* init_left = nullptr,
 //      binary_tree_node<Item>* init_right = nullptr
 //  )
-// Postcondition: 새롭게 생성된 노드는 init_data와 동일한 값을 데이터로 갖게되며, 
+// Postcondition: 새롭게 생성된 노드는 init_data와 동일한 값을 데이터로 갖게되며,
 // 자식 노드의 포인터는 init_left와 init_right와 동일한 값을 갖는다.
 //
 // MEMBER FUNCTIONS for the binary_tree_node<Item> class:
@@ -44,7 +44,7 @@
 //
 // NONMEMBER FUNCTIONS to maniplulate binary tree nodes:
 //  template <class Process, class BTNode>
-//  void inorder(Process f, BTNode* node_ptr) 
+//  void inorder(Process f, BTNode* node_ptr)
 //      Precondition: node_ptr은 이진 트리 내의 노드를 가리키는 포인터다. (node_ptr이 빈 이진 트리를 가리키는 경우 NULL값이 될 수 있다.)
 //      Postcondition: node_ptr이 NULL이 아닌 경우, 함수 f는 *node_ptr의 내용과 그것의 모든 자식 노드에 in-order 순회를 사용하여 적용된다.
 //      BTNode는 binary_tree_node 이거나 상수 이진 트리 노드일 수 있다. Process는 Item 타입 1개를 파라미터로 갖고 호출이 되는 함수 f의 타입을 나타낸다.
@@ -79,7 +79,9 @@
 //      Postcondition: 트리내에 존재하는 노드의 수를 반환한다.
 #ifndef BINTREE_H
 #define BINTREE_H
+
 #include <cstdlib>
+
 namespace main_savitch_10
 {
     template <typename Item>
@@ -90,7 +92,7 @@ namespace main_savitch_10
         using value_type = Item;
 
         // 생성자
-        binary_tree_node(const Item& init_data = Item(), binary_tree_node* init_left = nullptr, binary_tree_node* init_right = nullptr)
+        binary_tree_node(const Item &init_data = Item(), binary_tree_node *init_left = nullptr, binary_tree_node *init_right = nullptr)
         {
             data_field = init_data;
             left_field = init_left;
@@ -99,30 +101,45 @@ namespace main_savitch_10
 
         // 수정(MODIFICATION)을 위한 멤버 함수
         // 포인터를 반환하는 멤버 함수가 존재하는 경우에는 그것과 대응되는 const 버전도 만들어 주는게 일반적이다.
-        Item& data() { return data_field; }
-        binary_tree_node*& left() { return left_field; }
-        binary_tree_node*& right() { return right_field; }
-        void set_data(const Item& new_data) { data_field = new_data; }
-        void set_left(binary_tree_node* new_left) { left_field = new_left; }
-        void set_right(binary_tree_node* new_right) { right_field = new_right; }
+        Item &data() { return data_field; }
+        binary_tree_node *&left() { return left_field; }
+        binary_tree_node *&right() { return right_field; }
+        void set_data(const Item &new_data) { data_field = new_data; }
+        void set_left(binary_tree_node *new_left) { left_field = new_left; }
+        void set_right(binary_tree_node *new_right) { right_field = new_right; }
 
         // 상수(CONST) 멤버 함수
-        const Item& data() const { return data_field; }
-        const binary_tree_node* left() const { return left_field; }
-        const binary_tree_node* right() const { return right_field; }
+        const Item &data() const { return data_field; }
+        const binary_tree_node *left() const { return left_field; }
+        const binary_tree_node *right() const { return right_field; }
         bool is_leaf() const { return (left_field == nullptr) && (right_field == nullptr); }
 
     private:
         Item data_field;
-        binary_tree_node* left_field;
-        binary_tree_node* right_field;
+        binary_tree_node *left_field;
+        binary_tree_node *right_field;
     };
 
     // binary_tree_node<Item>을 위한 비멤버 함수
-    template <class Item>
-    void tree_clear(binary_tree_node<Item>*& root_ptr);
+    template <typename Process, typename BTNode>
+    void inorder(Process f, BTNode *node_ptr);
 
-    template <class Item>
-    binary_tree_node<Item>* tree_copy(const binary_tree_node<Item>* root_ptr);
+    template <typename Process, typename BTNode>
+    void postorder(Process f, BTNode *node_ptr);
+
+    template <typename Process, typename BTNode>
+    void preorder(Process f, BTNode *node_ptr);
+
+    template <typename Item, typename SizeType>
+    void print(const binary_tree_node<Item> *node_ptr, SizeType depth);
+
+    template <typename Item>
+    void tree_clear(binary_tree_node<Item> *&root_ptr);
+
+    template <typename Item>
+    binary_tree_node<Item> *tree_copy(const binary_tree_node<Item> *root_ptr);
+
+    template <typename Item>
+    std::size_t tree_size(const binary_tree_node<Item> *node_ptr);
 }
 #endif
