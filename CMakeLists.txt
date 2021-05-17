@@ -15,7 +15,6 @@ SET ( OUTPUT_ELF
         "${CMAKE_PROJECT_NAME}-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.out"
         )
 SET ( SRC_FILES
-        BalancedTrees/set.cpp
         main.cpp
         )
 
