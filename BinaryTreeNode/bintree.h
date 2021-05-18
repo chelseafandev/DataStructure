@@ -82,6 +82,7 @@
 
 #include <cstdlib>
 #include <iomanip>
+#include <iostream>
 
 namespace main_savitch_10
 {
@@ -121,7 +122,7 @@ namespace main_savitch_10
         binary_tree_node *right_field;
     };
 
-    // binary_tree_node<Item>을 위한 비멤버 함수
+    // binary_tree_node<Item>에서 활용되는 비멤버 함수
     template <typename Process, typename BTNode>
     void inorder(Process f, BTNode *node_ptr)
     {
@@ -209,7 +210,8 @@ namespace main_savitch_10
         // 1. l_ptr을 왼쪽 서브 트리의 복사본으로 만든다.
         // 2. r_ptr을 오른쪽 서브 트리의 복사본으로 만든다.
         // 3. 새로운 binary_tree_node를 반환한다. (root_ptr->data(), l_ptr, r_ptr)
-        binary_tree_node<Item> *l_ptr, r_ptr;
+        binary_tree_node<Item> *l_ptr = nullptr;
+        binary_tree_node<Item> *r_ptr = nullptr;
 
         if (root_ptr == nullptr)
         {

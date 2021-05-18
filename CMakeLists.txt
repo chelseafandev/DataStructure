@@ -22,7 +22,10 @@ SET ( SRC_FILES
 SET ( CMAKE_C_COMPILER "g++" )
 
 # 공통 헤더 파일 Include 디렉토리 (-I)
-INCLUDE_DIRECTORIES ( /usr/local/include/boost )
+INCLUDE_DIRECTORIES (
+        /usr/local/include/boost 
+        BinaryTreeNode
+)
 
 # 공통 컴파일 옵션, 링크 옵션
 ADD_COMPILE_OPTIONS ( -g -Wall )
