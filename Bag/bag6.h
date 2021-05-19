@@ -1,6 +1,7 @@
 // FILE: bag6.h (part of the namespace main_savitch_10)
 // TEMPLATE CLASS PROVIDED: bag<Item> (a container template class for a collection of items)
 //
+//
 // TYPEDEFS for the bag<Item> class:
 //  bag<Item>::value_type
 //      bag<Item>::value_type is the data type of the items in the bag. It may be any of the
@@ -81,26 +82,24 @@ namespace main_savitch_10
 
         ~bag()
         {
-             std::cout << "destructor called!" << std::endl;
+            std::cout << "destructor called!" << std::endl;
             tree_clear(root_ptr);
         }
 
         // 수정(MODIFICATION)을 위한 멤버 함수
         size_type erase(const Item &target)
         {
-
         }
 
         bool erase_one(const Item &target)
         {
-
         }
 
         void insert(const Item &entry)
         {
-            binary_tree_node<Item>* cursor = nullptr;
+            binary_tree_node<Item> *cursor = nullptr;
 
-            if(root_ptr == nullptr)
+            if (root_ptr == nullptr)
             {
                 root_ptr = new binary_tree_node<Item>(entry);
                 return;
@@ -142,7 +141,6 @@ namespace main_savitch_10
 
         void operator+=(const bag &addend)
         {
-
         }
 
         void operator=(const bag &source)
@@ -150,7 +148,7 @@ namespace main_savitch_10
             std::cout << "operator= called!" << std::endl;
             if (root_ptr == source.root_ptr)
                 return;
-            
+
             tree_clear(root_ptr);
             root_ptr = tree_copy(source.root_ptr);
         }
@@ -163,9 +161,8 @@ namespace main_savitch_10
 
         size_type count(const Item &target) const
         {
-
         }
-        
+
     private:
         binary_tree_node<Item> *root_ptr; // 이진 탐색 트리의 root pointer
     };
@@ -174,7 +171,6 @@ namespace main_savitch_10
     template <typename Item>
     bag<Item> operator+(const bag<Item> &b1, const bag<Item> &b2)
     {
-
     }
 }
 
