@@ -256,6 +256,13 @@ namespace main_savitch_10
                 bst_remove_max(root_ptr->right(), removed);
             }
         }
+        
+        // Precondition: addroot_ptr은 이 메소드를 활성화한 bag객체의 이진 탐색 트리로부터 분리된 이진 탐색 트리의 root pointer이다.
+        // Postcondition: addroot_ptr의 이진 탐색 트리에 존재하는 모든 item은 이 메소드를 활성화한 bag객체의 이진 탐색 트리에 추가된다.
+        void bag::insert_all(const binary_tree_node<Item>* addroot_ptr)
+        {
+
+        }
     };
 
     // bag<Item>클래스에서 활용되는 비멤버 함수
