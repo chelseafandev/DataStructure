@@ -89,10 +89,22 @@ namespace main_savitch_10
         // 수정(MODIFICATION)을 위한 멤버 함수
         size_type erase(const Item &target)
         {
+            int nRet = 0;
+
+            while(1)
+            {
+                if(!erase_one(target))
+                    break;
+                
+                nRet++;
+            }
+
+            return nRet;
         }
 
         bool erase_one(const Item &target)
         {
+            return bst_remove(root_ptr, target);
         }
 
         void insert(const Item &entry)
@@ -161,10 +173,101 @@ namespace main_savitch_10
 
         size_type count(const Item &target) const
         {
+            int nRet = 0;
+            binary_tree_node<Item> *cursor = root_ptr;
+            while(cursor != nullptr)
+            {
+                if (cursor->data() == target)
+                {
+                    nRet++;
+                    cursor = cursor->left();
+                }
+                else if(cursor->data() > target)
+                {
+                    cursor = cursor->left();
+                }
+                else
+                {
+                    cursor = cursor->right();
+                }
+            }
+
+            return nRet;
+        }
+
+        void printBag()
+        {
+            print(root_ptr, 0);
         }
 
     private:
         binary_tree_node<Item> *root_ptr; // 이진 탐색 트리의 root pointer
+
+        // Precondition: root_ptr is a root pointer of a binary search tree (or may
+        // be NULL for the empty tree).
+        // Postcondition: If target was in the tree, then one copy of target has been
+        // removed, root_ptr now points to the root of the new (smaller) binary
+        // search tree, and the function returns true. Otherwise, if target was not
+        // in the tree, then the tree is unchanged, and the function returns false.
+        bool bst_remove(binary_tree_node<Item> *&root_ptr, const Item &target)
+        {
+            if(root_ptr == nullptr)
+            {
+                return false;
+            }
+            else
+            {
+                if(root_ptr->data() > target)
+                {
+                    bst_remove(root_ptr->left(), target);
+                }
+                else if(root_ptr->data() < target)
+                {
+                    bst_remove(root_ptr->right(), target);
+                }
+                else
+                {
+                    if(root_ptr->left() == nullptr)
+                    {
+                        // 루트 노드에 왼쪽 자식 노드가 존재하지 않는 경우
+                        binary_tree_node<Item> *tmp_ptr = root_ptr;
+                        root_ptr = root_ptr->right();
+                        delete tmp_ptr;
+                        return true;
+                    }
+                    else
+                    {
+                        // 루트 노드에 왼쪽 자식 노드가 존재하는 경우
+                        Item swapData;
+                        bst_remove_max(root_ptr->left(), swapData);
+                        root_ptr->set_data(swapData);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // Precondition: root_ptr is a root pointer of a non-empty binary search
+        // tree.
+        // Postcondition: The largest item in the binary search tree has been
+        // removed, and root_ptr now points to the root of the new (smaller) binary
+        // search tree. The reference parameter, removed, has been set to a copy
+        // of the removed item.
+        void bst_remove_max(binary_tree_node<Item> *&root_ptr, Item &removed)
+        {
+            if(root_ptr->right() == nullptr)
+            {
+                // 오른쪽 자식 노드가 없는 경우에는 루트 노드가 가장 큰 노드이다
+                removed = root_ptr->data();
+                binary_tree_node<Item> *tmp_ptr = root_ptr;
+                root_ptr = root_ptr->left();
+                delete tmp_ptr;
+            }
+            else
+            {
+                bst_remove_max(root_ptr->right(), removed);
+            }
+        }
     };
 
     // bag<Item>클래스에서 활용되는 비멤버 함수
