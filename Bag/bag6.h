@@ -1,54 +1,47 @@
 // FILE: bag6.h (part of the namespace main_savitch_10)
 // TEMPLATE CLASS PROVIDED: bag<Item> (a container template class for a collection of items)
 //
-//
 // TYPEDEFS for the bag<Item> class:
 //  bag<Item>::value_type
-//      bag<Item>::value_type is the data type of the items in the bag. It may be any of the
-//      C++ built-in types (int, char, etc.), or a class with a default constructor, a copy
-//      constructor, an assignment operator, and a less-than operator forming a strict
-//      weak ordering.
-//
+//      bag<Item>::value_type은 bag내에 존재하는 item의 데이터 타입이다. 이 타입 정보에는 C++의 내장(built-in) 타입(int, char 등)이나 
+//      디폴트 생성자, 복사 생성자, 대입(=) 연산자, strict weak ordering을 형성하는 less-than(<) 연산자를 갖는 클래스가 올 수 있다.
 //  bag<Item>::size_type
-//      bag<Item>::size_type is the data type of any variable that keeps track of how many
-//      items are in a bag.
+//      bag<Item>::size_type은 bag 안에 몇개의 item이 존재하는지를 추적하기 위해 사용하는 다양한 변수들의 타입이다.
 //
 // CONSTRUCTOR for the bag<Item> class:
 //  bag( )
-//      Postcondition: The bag is empty.
+//      Postcondition: bag은 비어 있는 상태이다.
 //
 // MODIFICATION MEMBER FUNCTIONS for the bag<Item> class:
 //  size_type erase(const Item& target)
-//      Postcondition: All copies of target have been removed from the bag. The return value
-//      is the number of copies removed (which could be zero).
+//      Postcondition: bag에 존재하는 모든 target값이 삭제된다. 반환 값은 삭제된 target의 개수이며 0이 될 수 있다.
 //
 //  bool erase_one(const Item& target)
-//      Postcondition: If target was in the bag, then one copy of target has been removed from
-//      the bag; otherwise the bag is unchanged. A true return value indicates that one copy
-//      was removed; false indicates that nothing was removed.
+//      Postcondition: 만약 bag에 target이 존재한다면 bag에서 하나의 target을 삭제한다. 그렇지 않다면 bag에는 변화가 없다.
+//      반환 값 true는 target 하나를 삭제하였다는 것을 의미하고 false는 삭제한게 없다는 것을 의미힌다.
 //
 //  void insert(const Item& entry)
-//      Postcondition: A new copy of entry has been inserted into the bag.
+//      Postcondition: bag에 새로운 entry가 추가된다.
 //
 //  void operator +=(const bag& addend)
-//      Postcondition: Each item in addend has been added to this bag.
+//      Postcondition: addend의 각각의 item들이 이 bag에 추가된다.
 //
 // CONSTANT MEMBER FUNCTIONS for the bag<Item> class:
 //  size_type size( ) const
-//      Postcondition: Return value is the total number of items in the bag.
+//      Postcondition: 반환 값은 bag에 존재하는 모든 item의 개수이다.
 //
 //  size_type count(const Item& target) const
-//      Postcondition: Return value is number of times target is in the bag.
+//      Postcondition: 반환 값은 bag에 존재하는 target의 개수이다.
 //
 // NONMEMBER FUNCTIONS for the bag class:
 //  bag operator +(const bag& b1, const bag& b2)
-//      Postcondition: The bag returned is the union of b1 and b2.
+//      Postcondition: b1와 b2를 합한 bag을 반환한다.
 //
 // VALUE SEMANTICS for the bag class:
-//  Assignments and the copy constructor may be used with bag objects.
+//  대입과 복사 생성자는 bag 객체에서 사용될 수 있다.
 // DYNAMIC MEMORY USAGE by the bag:
-//  If there is insufficient dynamic memory, then the following functions throw bad_alloc:
-//  the constructors, insert, operator +=, operator +, and the assignment operator.
+//  동적 메모리가 부족한 경우에는 아래 함수들이 bad_alloc 에러를 던질 수 있다.
+//  생성자, insert 함수, 합(+=, +) 연산자, 대입(=) 연산자
 #ifndef BAG6_H
 #define BAG6_H
 
@@ -203,12 +196,9 @@ namespace main_savitch_10
     private:
         binary_tree_node<Item> *root_ptr; // 이진 탐색 트리의 root pointer
 
-        // Precondition: root_ptr is a root pointer of a binary search tree (or may
-        // be NULL for the empty tree).
-        // Postcondition: If target was in the tree, then one copy of target has been
-        // removed, root_ptr now points to the root of the new (smaller) binary
-        // search tree, and the function returns true. Otherwise, if target was not
-        // in the tree, then the tree is unchanged, and the function returns false.
+        // Precondition: root_ptr은 이진 탐색 트리의 root pointer 이다. (비어있는 트리의 경우 이 값이 NULL이 될 수 있다.)
+        // Postcondition: target이 트리에 존재한다면 그 값을 삭제하고, root_ptr은 새로운 (작아진)이진 탐색 트리를 가리킨다.
+        // 그리고 함수는 true를 반환한다. 그렇지 않다면, tree에 변화는 없고 함수는 false를 반환한다.
         bool bst_remove(binary_tree_node<Item> *&root_ptr, const Item &target)
         {
             if(root_ptr == nullptr)
@@ -247,12 +237,9 @@ namespace main_savitch_10
             }
         }
 
-        // Precondition: root_ptr is a root pointer of a non-empty binary search
-        // tree.
-        // Postcondition: The largest item in the binary search tree has been
-        // removed, and root_ptr now points to the root of the new (smaller) binary
-        // search tree. The reference parameter, removed, has been set to a copy
-        // of the removed item.
+        // Precondition: root_ptr은 비어있지 않은 이진 탐색 트리의 root pointer 이다.
+        // Postcondition: 이진 탐색 트리의 가장 큰 값이 제거되고, root_ptr은 새로운 (작아진)이진 탐색 트리를 가리킨다.
+        // reference 타입인 인자 removed는 삭제되는 값으로 설정한다.
         void bst_remove_max(binary_tree_node<Item> *&root_ptr, Item &removed)
         {
             if(root_ptr->right() == nullptr)
@@ -265,6 +252,7 @@ namespace main_savitch_10
             }
             else
             {
+                // 오른쪽 자식 노드가 있는 경우에는 오른쪽 서브 트리를 기준으로 다시 가장 큰 값을 찾는다
                 bst_remove_max(root_ptr->right(), removed);
             }
         }
