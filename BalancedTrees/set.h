@@ -3,7 +3,7 @@
 //
 // TYPEDEFS for the set<Item> class:
 //  set<Item>::value_type
-//      set<Item>::value_type은 set내에 존재하는 item의 데이터 타입이다. 이 타입 정보에는 C++의 내장(built-in) 타입(int, char 등)이나 
+//      set<Item>::value_type은 set내에 존재하는 item의 데이터 타입이다. 이 타입 정보에는 C++의 내장(built-in) 타입(int, char 등)이나
 //      디폴트 생성자, 복사 생성자, 대입(=) 연산자, strict weak ordering을 형성하는 less-than(<) 연산자를 갖는 클래스가 올 수 있다.
 //
 // CONSTRUCTOR for the set<Item> class:
@@ -50,7 +50,7 @@ namespace main_savitch_11
         using value_type = Item;
 
         // 생성자 및 소멸자
-        set() 
+        set()
         {
             // 디폴트 생성자
             std::cout << "Constructor!" << std::endl;
@@ -71,14 +71,14 @@ namespace main_savitch_11
             subset = source.subset;
         }
 
-        ~set() 
+        ~set()
         {
             std::cout << "Destructor!" << std::endl;
             //{ clear(); }
         }
-        
+
         // 수정(MODIFICATION)을 위한 멤버 함수
-        void operator =(const set& source);
+        void operator=(const set &source);
         void clear();
         template <typename Item>
         bool set<Item>::insert(const Item &entry)
@@ -95,7 +95,7 @@ namespace main_savitch_11
 
             return true;
         }
-        std::size_t erase(const Item& target);
+        std::size_t erase(const Item &target);
 
         // 상수(CONST) 멤버 함수
         template <typename Item>
@@ -133,7 +133,6 @@ namespace main_savitch_11
 
         bool empty() const { return data_count == 0; }
 
-
     private:
         // 멤버 상수
         static const std::size_t MINIMUM = 200;
@@ -144,7 +143,7 @@ namespace main_savitch_11
         Item data[MAXIMUM + 1];
         std::size_t child_count;
         set *subset[MAXIMUM + 2];
-        
+
         // 헬퍼 멤버 함수
         bool is_leaf() const { return child_count == 0; }
 
@@ -195,8 +194,8 @@ namespace main_savitch_11
             return false;
         }
 
-        bool loose_erase(const Item& target);
-        void remove_biggest(Item& removed_entry);
+        bool loose_erase(const Item &target);
+        void remove_biggest(Item &removed_entry);
 
         // Precondition: (i < child_count) and the entire B-tree is valid EXCEPT that subset[i] has MAXIMUM + 1 entries.
         // Postcondition: The tree has been rearranged so that the entire B-tree is valid EXCEPT that the number of entries

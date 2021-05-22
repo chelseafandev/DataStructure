@@ -15,10 +15,10 @@ int main()
     myBag.insert(54);
     //myBag.insert(16);
     //myBag.insert(52);
-    
+
     main_savitch_10::bag<int> myBag2 = myBag; // copy constructor called
-    main_savitch_10::bag<int> myBag3; // constructor called
-    myBag3 = myBag; // operator= called
+    main_savitch_10::bag<int> myBag3;         // constructor called
+    myBag3 = myBag;                           // operator= called
 
     myBag3.printBag();
 
@@ -30,7 +30,7 @@ int main()
     std::cout << "count(" << target << ") = " << myBag3.count(target) << std::endl;
 
     target = 53;
-    if(myBag3.erase_one(target))
+    if (myBag3.erase_one(target))
     {
         std::cout << "erase_one(" << target << ") is true" << std::endl;
         myBag3.printBag();

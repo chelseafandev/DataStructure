@@ -3,7 +3,7 @@
 //
 // TYPEDEFS for the bag<Item> class:
 //  bag<Item>::value_type
-//      bag<Item>::value_type은 bag내에 존재하는 item의 데이터 타입이다. 이 타입 정보에는 C++의 내장(built-in) 타입(int, char 등)이나 
+//      bag<Item>::value_type은 bag내에 존재하는 item의 데이터 타입이다. 이 타입 정보에는 C++의 내장(built-in) 타입(int, char 등)이나
 //      디폴트 생성자, 복사 생성자, 대입(=) 연산자, strict weak ordering을 형성하는 less-than(<) 연산자를 갖는 클래스가 올 수 있다.
 //  bag<Item>::size_type
 //      bag<Item>::size_type은 bag 안에 몇개의 item이 존재하는지를 추적하기 위해 사용하는 다양한 변수들의 타입이다.
@@ -84,11 +84,11 @@ namespace main_savitch_10
         {
             int nRet = 0;
 
-            while(1)
+            while (1)
             {
-                if(!erase_one(target))
+                if (!erase_one(target))
                     break;
-                
+
                 nRet++;
             }
 
@@ -168,14 +168,14 @@ namespace main_savitch_10
         {
             int nRet = 0;
             binary_tree_node<Item> *cursor = root_ptr;
-            while(cursor != nullptr)
+            while (cursor != nullptr)
             {
                 if (cursor->data() == target)
                 {
                     nRet++;
                     cursor = cursor->left();
                 }
-                else if(cursor->data() > target)
+                else if (cursor->data() > target)
                 {
                     cursor = cursor->left();
                 }
@@ -201,23 +201,23 @@ namespace main_savitch_10
         // 그리고 함수는 true를 반환한다. 그렇지 않다면, tree에 변화는 없고 함수는 false를 반환한다.
         bool bst_remove(binary_tree_node<Item> *&root_ptr, const Item &target)
         {
-            if(root_ptr == nullptr)
+            if (root_ptr == nullptr)
             {
                 return false;
             }
             else
             {
-                if(root_ptr->data() > target)
+                if (root_ptr->data() > target)
                 {
                     bst_remove(root_ptr->left(), target);
                 }
-                else if(root_ptr->data() < target)
+                else if (root_ptr->data() < target)
                 {
                     bst_remove(root_ptr->right(), target);
                 }
                 else
                 {
-                    if(root_ptr->left() == nullptr)
+                    if (root_ptr->left() == nullptr)
                     {
                         // 루트 노드에 왼쪽 자식 노드가 존재하지 않는 경우
                         binary_tree_node<Item> *tmp_ptr = root_ptr;
@@ -242,7 +242,7 @@ namespace main_savitch_10
         // reference 타입인 인자 removed는 삭제되는 값으로 설정한다.
         void bst_remove_max(binary_tree_node<Item> *&root_ptr, Item &removed)
         {
-            if(root_ptr->right() == nullptr)
+            if (root_ptr->right() == nullptr)
             {
                 // 오른쪽 자식 노드가 없는 경우에는 루트 노드가 가장 큰 노드이다
                 removed = root_ptr->data();
@@ -256,12 +256,11 @@ namespace main_savitch_10
                 bst_remove_max(root_ptr->right(), removed);
             }
         }
-        
+
         // Precondition: addroot_ptr은 이 메소드를 활성화한 bag객체의 이진 탐색 트리로부터 분리된 이진 탐색 트리의 root pointer이다.
         // Postcondition: addroot_ptr의 이진 탐색 트리에 존재하는 모든 item은 이 메소드를 활성화한 bag객체의 이진 탐색 트리에 추가된다.
-        void bag::insert_all(const binary_tree_node<Item>* addroot_ptr)
+        void bag::insert_all(const binary_tree_node<Item> *addroot_ptr)
         {
-
         }
     };
 
