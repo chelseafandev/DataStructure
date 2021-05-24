@@ -241,7 +241,7 @@ namespace main_savitch_10
                     }
                     else
                     {
-                        // 루트 노드에 왼쪽 자식 노드가 존재하는 경우
+                        // 루트 노드에 왼쪽 자식 노드가 존재하는 경우(왼쪽 서브 트리에서 가장 큰 값을 찾아서 그 값을 루트 노드로 올림)
                         Item swapData;
                         bst_remove_max(root_ptr->left(), swapData);
                         root_ptr->set_data(swapData);
