@@ -200,6 +200,7 @@ namespace main_savitch_10
             tree_clear(child);
             child = root_ptr->right();
             tree_clear(child);
+            delete root_ptr;
             root_ptr = nullptr;
         }
     }

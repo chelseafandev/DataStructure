@@ -61,9 +61,15 @@ namespace main_savitch_11
         {
             std::cout << "Copy Constructor!" << std::endl;
             data_count = source.data_count;
-            data = source.data;
+            for (int i = 0; i < data_count; i++)
+            {
+                data[i] = source.data[i];
+            }
             child_count = source.child_count;
-            subset = source.subset;
+            for (int i = 0; i < child_count; i++)
+            {
+                subset[i] = source.subset[i];
+            }
         }
 
         ~set()
@@ -75,15 +81,31 @@ namespace main_savitch_11
         // 수정(MODIFICATION)을 위한 멤버 함수
         void operator=(const set &source)
         {
-
+            clear();
+            data_count = source.data_count;
+            for (int i = 0; i < data_count; i++)
+            {
+                data[i] = source.data[i];
+            }
+            child_count = source.child_count;
+            for (int i = 0; i < child_count; i++)
+            {
+                subset[i] = source.subset[i];
+            }
         }
 
         void clear()
         {
             data_count = 0;
             child_count = 0;
+            for (int i = 0; i < child_count; i++)
+            {
+                subset[i]->clear();
+                delete subset[i];
+                subset[i] = nullptr;
+            }
         }
-        
+
         bool insert(const Item &entry)
         {
             if (!loose_insert(entry))
@@ -95,8 +117,8 @@ namespace main_savitch_11
             // 최상위 root에서 fix_excess 처리
             if (data_count > MAXIMUM)
             {
-                std::cout << "data_count(" << data_count << ")"  << " > MAXIMIM(" << MAXIMUM << ")" << std::endl;
-                set<Item>* tmp = this;
+                set<Item> *tmp = new set<Item>();
+                tmp = this;
                 this->clear();
                 this->child_count = 1;
                 this->subset[0] = tmp;
@@ -108,7 +130,6 @@ namespace main_savitch_11
 
         std::size_t erase(const Item &target)
         {
-
         }
 
         // 상수(CONST) 멤버 함수
@@ -145,6 +166,16 @@ namespace main_savitch_11
         }
 
         bool empty() const { return data_count == 0; }
+
+        void printData()
+        {
+            std::cout << "[";
+            for (int i = 0; i < data_count; i++)
+            {
+                std::cout << data[i] << " ";
+            }
+            std::cout << "]" << std::endl;
+        }
 
     private:
         // 멤버 상수
@@ -191,7 +222,7 @@ namespace main_savitch_11
             else if (is_leaf())
             {
                 // leaf 노드인 경우 위에서 구한 인덱스 값을 이용하여 entry값을 data 배열에 추가
-                if(data_count == 0)
+                if (data_count == 0)
                 {
                     data[0] = entry;
                     data_count++;
@@ -201,16 +232,20 @@ namespace main_savitch_11
                 bool isFound = false;
                 Item prev;
                 data_count++;
-                for(int i = 0; i < data_count; i++)
+                for (int i = 0; i < data_count; i++)
                 {
-                    if(!isFound)
+                    if (!isFound)
                     {
-                        if(data[i] > entry)
+                        if (data[i] > entry)
                         {
                             isFound = true;
                             prev = data[i];
                             data[i] = entry;
-                            std::cout << "A" << data[i] << std::endl;
+                        }
+
+                        if (i == data_count - 1)
+                        {
+                            data[i] = entry;
                         }
                     }
                     else
@@ -219,26 +254,25 @@ namespace main_savitch_11
                         prev = data[i];
                         data[i] = tmp;
                     }
-                    
-                }
-
-                if(!isFound)
-                {
-                    data[data_count - 1] = entry;
-                    std::cout << "B" << data[data_count - 1] << std::endl;
                 }
 
                 return true;
             }
             else
             {
-                std::cout << "ccc" << std::endl;
                 // leaf 노드가 아닌 경우
+                for (int i = 0; i < data_count; i++)
+                {
+                    std::cout << data[i] << " ";
+                }
+                std::cout << "nSubSetIdx = " << nSubSetIdx << std::endl;
                 bool nRet = subset[nSubSetIdx]->loose_insert(entry);
                 if (nRet)
                 {
                     if (subset[nSubSetIdx]->data_count > MAXIMUM)
                         fix_excess(nSubSetIdx);
+
+                    return true;
                 }
             }
 
@@ -247,12 +281,10 @@ namespace main_savitch_11
 
         bool loose_erase(const Item &target)
         {
-
         }
 
         void remove_biggest(Item &removed_entry)
         {
-
         }
 
         // Precondition: (i < child_count) and the entire B-tree is valid EXCEPT that subset[i] has MAXIMUM + 1 entries.
@@ -260,32 +292,29 @@ namespace main_savitch_11
         // in the root of this set might be one more than the allowed maximum.
         void fix_excess(std::size_t i)
         {
-            std::cout << "fix_excess start!" << std::endl;
             int midIdx = subset[i]->data_count / 2;
 
             // subset의 가운데 entity를 data에 저장하고
             data[i] = subset[i]->data[midIdx];
-            std::cout << "data[i] = " << data[i] << std::endl;
 
             // right
-            set<Item> added;
-            int idx = 0;
-            for(int i = midIdx + 1; i < subset[i]->data_count; i++)
+            set<Item> *added = new set<Item>();
+            int newIdx = 0;
+            for (int idx = midIdx + 1; idx < subset[i]->data_count; idx++)
             {
-                added.data_count++;
-                added.data[idx] = subset[i]->data[i];
+                added->data_count++;
+                added->data[newIdx] = subset[i]->data[idx];
+                newIdx++;
             }
-            subset[child_count - 1] = &added;
-            
+            subset[child_count - 1] = added;
+
             // left
             subset[i]->data_count = midIdx;
-
             child_count++;
         }
 
         void fix_shortage(std::size_t i)
         {
-
         }
     };
 }

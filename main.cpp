@@ -65,6 +65,8 @@ void testSet()
     mySet.insert(4);
     mySet.insert(17);
     mySet.insert(6);
+
+    //mySet.printData();
     //mySet.insert(12);
     //mySet.insert(19);
     //mySet.insert(22);

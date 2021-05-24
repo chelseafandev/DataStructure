@@ -23,7 +23,7 @@ SET ( CMAKE_C_COMPILER "g++" )
 
 # 공통 헤더 파일 Include 디렉토리 (-I)
 INCLUDE_DIRECTORIES (
-        /usr/local/include/boost 
+        #/usr/local/include/boost 
         BinaryTreeNode
         BalancedTrees
 )
@@ -33,7 +33,7 @@ ADD_COMPILE_OPTIONS ( -g -Wall )
 SET ( CMAKE_EXE_LINKER_FLAGS "-static -Wl,--gc-sections" )
 
 # 공통 링크 라이브러리 (-l)
-LINK_LIBRARIES( pthread boost_system boost_thread )
+LINK_LIBRARIES( pthread ) #boost_system boost_thread )
 
 # 공통 링크 라이브러리 디렉토리 (-L)
 LINK_DIRECTORIES ( /usr/local/lib/boost )
