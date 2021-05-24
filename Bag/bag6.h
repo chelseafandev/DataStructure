@@ -47,6 +47,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <syslog.h>
 
 #include "bintree.h"
 
@@ -63,19 +64,19 @@ namespace main_savitch_10
         // 생성자 및 소멸자
         bag()
         {
-            std::cout << "constructor called!" << std::endl;
+            syslog(LOG_LOCAL0, "%s", "bag constructor called!");
             root_ptr = nullptr;
         }
 
         bag(const bag &source)
         {
-            std::cout << "copy constructor called!" << std::endl;
+            syslog(LOG_LOCAL0, "%s", "bag copy constructor called!");
             root_ptr = tree_copy(source.root_ptr);
         }
 
         ~bag()
         {
-            std::cout << "destructor called!" << std::endl;
+            syslog(LOG_LOCAL0, "%s", "bag destructor called!");
             tree_clear(root_ptr);
         }
 
@@ -146,11 +147,24 @@ namespace main_savitch_10
 
         void operator+=(const bag &addend)
         {
+            syslog(LOG_LOCAL0, "%s", "bag operator+= called!");
+            binary_tree_node<Item> *addroot_ptr;
+
+            if(root_ptr == addend.root_ptr)
+            {
+                addroot_ptr = tree_copy(addend.root_ptr);
+                insert_all(addroot_ptr);
+                tree_clear(addroot_ptr);
+            }
+            else
+            {
+                insert_all(addend.root_ptr);
+            }
         }
 
         void operator=(const bag &source)
         {
-            std::cout << "operator= called!" << std::endl;
+            syslog(LOG_LOCAL0, "%s", "bag operator= called!");
             if (root_ptr == source.root_ptr)
                 return;
 
@@ -259,8 +273,15 @@ namespace main_savitch_10
 
         // Precondition: addroot_ptr은 이 메소드를 활성화한 bag객체의 이진 탐색 트리로부터 분리된 이진 탐색 트리의 root pointer이다.
         // Postcondition: addroot_ptr의 이진 탐색 트리에 존재하는 모든 item은 이 메소드를 활성화한 bag객체의 이진 탐색 트리에 추가된다.
-        void bag::insert_all(const binary_tree_node<Item> *addroot_ptr)
+        void insert_all(const binary_tree_node<Item> *addroot_ptr)
         {
+            // pre-order나 post-order를 사용하라(in-order는 Unbalanced Tree를 발생시킴)
+            if(addroot_ptr != nullptr)
+            {
+                insert(addroot_ptr->data());
+                insert_all(addroot_ptr->left());
+                insert_all(addroot_ptr->right());
+            }
         }
     };
 
@@ -268,6 +289,10 @@ namespace main_savitch_10
     template <typename Item>
     bag<Item> operator+(const bag<Item> &b1, const bag<Item> &b2)
     {
+        syslog(LOG_LOCAL0, "%s", "bag operator+ called!");
+        bag<Item> result = b1;
+        result += b2;
+        return result;
     }
 }
 

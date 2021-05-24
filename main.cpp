@@ -21,6 +21,7 @@ int main()
     myBag3 = myBag;                           // operator= called
 
     myBag3.printBag();
+    std::cout << "========================================" << std::endl;
 
     int target = 10;
     std::cout << "count(" << target << ") = " << myBag3.count(target) << std::endl;
@@ -28,6 +29,7 @@ int main()
     std::cout << "count(" << target << ") = " << myBag3.count(target) << std::endl;
     target = 53;
     std::cout << "count(" << target << ") = " << myBag3.count(target) << std::endl;
+    std::cout << "========================================" << std::endl;
 
     target = 53;
     if (myBag3.erase_one(target))
@@ -40,10 +42,20 @@ int main()
         std::cout << "erase_one(" << target << ") is false" << std::endl;
         myBag3.printBag();
     }
+    std::cout << "========================================" << std::endl;
 
     target = 53;
     std::cout << "erase(" << target << ") = " << myBag3.erase(target) << std::endl;
     myBag3.printBag();
+    std::cout << "========================================" << std::endl;
+
+    main_savitch_10::bag<int> myBagSum;
+    myBagSum = myBag2 + myBag3;
+    myBagSum.printBag();
+    std::cout << "========================================" << std::endl;
+
+    myBag += myBag;
+    myBag.printBag();
 
     return 0;
 }
