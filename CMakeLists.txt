@@ -25,6 +25,7 @@ SET ( CMAKE_C_COMPILER "g++" )
 INCLUDE_DIRECTORIES (
         /usr/local/include/boost 
         BinaryTreeNode
+        BalancedTrees
 )
 
 # 공통 컴파일 옵션, 링크 옵션

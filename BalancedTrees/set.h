@@ -36,9 +36,9 @@
 //  생성자, insert 함수, 대입(=) 연산자
 #ifndef MAIN_SAVITCH_SET_H
 #define MAIN_SAVITCH_SET_H
+
 #include <cstdlib> // Provides size_t
 #include <iostream>
-#include <algorithm>
 
 namespace main_savitch_11
 {
@@ -52,21 +52,16 @@ namespace main_savitch_11
         // 생성자 및 소멸자
         set()
         {
-            // 디폴트 생성자
             std::cout << "Constructor!" << std::endl;
+            data_count = 0;
+            child_count = 0;
         }
 
-        template <typename Item>
-        set<Item>::set(const set<Item> &source)
+        set(const set<Item> &source)
         {
             std::cout << "Copy Constructor!" << std::endl;
-
-            //std::size_t data_count;
-            //Item data[MAXIMUM + 1];
-            //std::size_t child_count;
-            //set *subset[MAXIMUM + 2];
             data_count = source.data_count;
-            // data = source.data;
+            data = source.data;
             child_count = source.child_count;
             subset = source.subset;
         }
@@ -74,32 +69,50 @@ namespace main_savitch_11
         ~set()
         {
             std::cout << "Destructor!" << std::endl;
-            //{ clear(); }
+            clear();
         }
 
         // 수정(MODIFICATION)을 위한 멤버 함수
-        void operator=(const set &source);
-        void clear();
-        template <typename Item>
-        bool set<Item>::insert(const Item &entry)
+        void operator=(const set &source)
+        {
+
+        }
+
+        void clear()
+        {
+            data_count = 0;
+            child_count = 0;
+        }
+        
+        bool insert(const Item &entry)
         {
             if (!loose_insert(entry))
             {
+                std::cout << "loose_insert failed!" << std::endl;
                 return false;
             }
 
             // 최상위 root에서 fix_excess 처리
             if (data_count > MAXIMUM)
             {
+                std::cout << "data_count(" << data_count << ")"  << " > MAXIMIM(" << MAXIMUM << ")" << std::endl;
+                set<Item>* tmp = this;
+                this->clear();
+                this->child_count = 1;
+                this->subset[0] = tmp;
+                fix_excess(0);
             }
 
             return true;
         }
-        std::size_t erase(const Item &target);
+
+        std::size_t erase(const Item &target)
+        {
+
+        }
 
         // 상수(CONST) 멤버 함수
-        template <typename Item>
-        std::size_t set<Item>::count(const Item &target) const
+        std::size_t count(const Item &target) const
         {
             int nSubSetIdx = -1;
             for (int i = 0; i < data_count; i++)
@@ -135,7 +148,7 @@ namespace main_savitch_11
 
     private:
         // 멤버 상수
-        static const std::size_t MINIMUM = 200;
+        static const std::size_t MINIMUM = 1;
         static const std::size_t MAXIMUM = 2 * MINIMUM;
 
         // 멤버 변수
@@ -151,9 +164,9 @@ namespace main_savitch_11
         // Postcondition: If entry was already in the set, then the set is unchanged and the return value is false.
         // Otherwise, the entry has been added to the set, the return value is true, and the entire B-tree is still
         // valid EXCEPT that the number of entries in the root of this set might be one more than the allowed maximum.
-        template <typename Item>
-        bool set<Item>::loose_insert(const Item &entry)
+        bool loose_insert(const Item &entry)
         {
+            // entry의 인덱스 값 결정
             int nSubSetIdx = -1;
             for (int i = 0; i < data_count; i++)
             {
@@ -168,21 +181,59 @@ namespace main_savitch_11
             {
                 nSubSetIdx = data_count;
             }
+            ///
 
-            // root에 추가하려는 entry가 이미 존재하는 경우
             if ((nSubSetIdx < data_count) && !(data[nSubSetIdx] > entry))
             {
+                // root에 추가하려는 entry가 이미 존재하는 경우
                 return false;
             }
             else if (is_leaf())
             {
-                data[nSubSetIdx] = entry;
+                // leaf 노드인 경우 위에서 구한 인덱스 값을 이용하여 entry값을 data 배열에 추가
+                if(data_count == 0)
+                {
+                    data[0] = entry;
+                    data_count++;
+                    return true;
+                }
+
+                bool isFound = false;
+                Item prev;
                 data_count++;
-                std::sort(data, data + data_count);
+                for(int i = 0; i < data_count; i++)
+                {
+                    if(!isFound)
+                    {
+                        if(data[i] > entry)
+                        {
+                            isFound = true;
+                            prev = data[i];
+                            data[i] = entry;
+                            std::cout << "A" << data[i] << std::endl;
+                        }
+                    }
+                    else
+                    {
+                        Item tmp = prev;
+                        prev = data[i];
+                        data[i] = tmp;
+                    }
+                    
+                }
+
+                if(!isFound)
+                {
+                    data[data_count - 1] = entry;
+                    std::cout << "B" << data[data_count - 1] << std::endl;
+                }
+
                 return true;
             }
             else
             {
+                std::cout << "ccc" << std::endl;
+                // leaf 노드가 아닌 경우
                 bool nRet = subset[nSubSetIdx]->loose_insert(entry);
                 if (nRet)
                 {
@@ -194,23 +245,48 @@ namespace main_savitch_11
             return false;
         }
 
-        bool loose_erase(const Item &target);
-        void remove_biggest(Item &removed_entry);
+        bool loose_erase(const Item &target)
+        {
+
+        }
+
+        void remove_biggest(Item &removed_entry)
+        {
+
+        }
 
         // Precondition: (i < child_count) and the entire B-tree is valid EXCEPT that subset[i] has MAXIMUM + 1 entries.
         // Postcondition: The tree has been rearranged so that the entire B-tree is valid EXCEPT that the number of entries
         // in the root of this set might be one more than the allowed maximum.
-        template <typename Item>
-        void set<Item>::fix_excess(std::size_t i)
+        void fix_excess(std::size_t i)
         {
+            std::cout << "fix_excess start!" << std::endl;
             int midIdx = subset[i]->data_count / 2;
 
-            // 가운데 entity를 parent로 올리고
+            // subset의 가운데 entity를 data에 저장하고
+            data[i] = subset[i]->data[midIdx];
+            std::cout << "data[i] = " << data[i] << std::endl;
 
-            // subset 2개로 분할하기
+            // right
+            set<Item> added;
+            int idx = 0;
+            for(int i = midIdx + 1; i < subset[i]->data_count; i++)
+            {
+                added.data_count++;
+                added.data[idx] = subset[i]->data[i];
+            }
+            subset[child_count - 1] = &added;
+            
+            // left
+            subset[i]->data_count = midIdx;
+
+            child_count++;
         }
 
-        void fix_shortage(std::size_t i);
+        void fix_shortage(std::size_t i)
+        {
+
+        }
     };
 }
 #endif

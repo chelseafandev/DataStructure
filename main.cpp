@@ -2,8 +2,9 @@
 
 #include "BinaryTreeNode/bintree.h"
 #include "Bag/bag6.h"
+#include "BalancedTrees/set.h"
 
-int main()
+void testBag()
 {
     main_savitch_10::bag<int> myBag; // constructor called
     myBag.insert(45);
@@ -56,6 +57,24 @@ int main()
 
     myBag += myBag;
     myBag.printBag();
+}
 
+void testSet()
+{
+    main_savitch_11::set<int> mySet;
+    mySet.insert(4);
+    mySet.insert(17);
+    mySet.insert(6);
+    //mySet.insert(12);
+    //mySet.insert(19);
+    //mySet.insert(22);
+
+    //mySet.insert(18);
+}
+
+int main()
+{
+    //testBag();
+    testSet();
     return 0;
 }
