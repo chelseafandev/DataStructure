@@ -81,6 +81,7 @@ namespace main_savitch_11
         // 수정(MODIFICATION)을 위한 멤버 함수
         void operator=(const set &source)
         {
+            std::cout << "operator= called!" << std::endl;
             clear();
             data_count = source.data_count;
             for (int i = 0; i < data_count; i++)
@@ -93,7 +94,7 @@ namespace main_savitch_11
                 subset[i] = source.subset[i];
             }
         }
-
+        
         void clear()
         {
             data_count = 0;
@@ -114,14 +115,21 @@ namespace main_savitch_11
                 return false;
             }
 
+            //std::cout << "data_count = " << data_count << std::endl;
+            //std::cout << "MAXIMUM = " << MAXIMUM << std::endl;
             // 최상위 root에서 fix_excess 처리
             if (data_count > MAXIMUM)
             {
                 set<Item> *tmp = new set<Item>();
-                tmp = this;
-                this->clear();
-                this->child_count = 1;
-                this->subset[0] = tmp;
+                *tmp = *this;
+
+                clear();                
+                child_count = 1;
+                subset[0] = tmp;
+                for (int i = 0; i < subset[0]->data_count; i++)
+                {
+                    std::cout << subset[0]->data[i] << std::endl;
+                }
                 fix_excess(0);
             }
 
@@ -261,11 +269,6 @@ namespace main_savitch_11
             else
             {
                 // leaf 노드가 아닌 경우
-                for (int i = 0; i < data_count; i++)
-                {
-                    std::cout << data[i] << " ";
-                }
-                std::cout << "nSubSetIdx = " << nSubSetIdx << std::endl;
                 bool nRet = subset[nSubSetIdx]->loose_insert(entry);
                 if (nRet)
                 {
@@ -296,6 +299,8 @@ namespace main_savitch_11
 
             // subset의 가운데 entity를 data에 저장하고
             data[i] = subset[i]->data[midIdx];
+            data_count++;
+            std::cout << "data[i]=" << data[i] << std::endl;
 
             // right
             set<Item> *added = new set<Item>();
@@ -304,13 +309,20 @@ namespace main_savitch_11
             {
                 added->data_count++;
                 added->data[newIdx] = subset[i]->data[idx];
+                std::cout << "added->data[newIdx]=" << added->data[newIdx] << std::endl;
                 newIdx++;
             }
+            child_count++;
+            std::cout << "child_count=" << child_count << std::endl;
             subset[child_count - 1] = added;
 
             // left
             subset[i]->data_count = midIdx;
-            child_count++;
+
+            for (int i = 0; i < child_count; i++)
+            {
+
+            }
         }
 
         void fix_shortage(std::size_t i)
