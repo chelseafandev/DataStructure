@@ -62,15 +62,38 @@ void testBag()
 void testSet()
 {
     main_savitch_11::set<int> mySet;
-    mySet.insert(4);
-    mySet.insert(17);
-    mySet.insert(6);
-    mySet.insert(12);
-    mySet.insert(19);
-    mySet.insert(22);
+    for (int i = 0; i <= 8; i++)
+    {
+        mySet.insert(i);
+    }
+    mySet.insert(10);
+
+    for (int i = 11; i <= 24; i++)
+    {
+        mySet.insert(i);
+    }
+    mySet.insert(26);
+    mySet.insert(28);
     
-    mySet.insert(18);
-    mySet.printData();
+    for (int i = 31; i <= 35; i++)
+    {
+        mySet.insert(i);
+    }
+    mySet.insert(40);
+    mySet.insert(50);
+    mySet.insert(51);
+    
+    main_savitch_11::set<int> mySet2;
+    mySet2.insert(4);
+    mySet2.insert(17);
+    mySet2.insert(6);
+    mySet2.insert(12);    
+    mySet2.insert(19);
+    mySet2.insert(22);
+    mySet2.insert(18);
+
+    mySet = mySet2;
+    mySet.print();
 }
 
 int main()

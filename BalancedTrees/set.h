@@ -52,14 +52,14 @@ namespace main_savitch_11
         // 생성자 및 소멸자
         set()
         {
-            std::cout << "Constructor!" << std::endl;
+            //std::cout << "Constructor!" << std::endl;
             data_count = 0;
             child_count = 0;
         }
 
         set(const set<Item> &source)
         {
-            std::cout << "Copy Constructor!" << std::endl;
+            //std::cout << "Copy Constructor!" << std::endl;
             data_count = source.data_count;
             for (int i = 0; i < data_count; i++)
             {
@@ -74,14 +74,14 @@ namespace main_savitch_11
 
         ~set()
         {
-            std::cout << "Destructor!" << std::endl;
+            //std::cout << "Destructor!" << std::endl;
             clear();
         }
 
         // 수정(MODIFICATION)을 위한 멤버 함수
         void operator=(const set &source)
         {
-            std::cout << "operator= called!" << std::endl;
+            //std::cout << "operator= called!" << std::endl;
             clear();
             data_count = source.data_count;
             for (int i = 0; i < data_count; i++)
@@ -122,17 +122,11 @@ namespace main_savitch_11
             {
                 set<Item> *tmp = new set<Item>();
                 *tmp = *this;
-
                 clear();                
                 child_count = 1;
                 subset[0] = tmp;
-                for (int i = 0; i < subset[0]->data_count; i++)
-                {
-                    std::cout << subset[0]->data[i] << std::endl;
-                }
                 fix_excess(0);
             }
-
             return true;
         }
 
@@ -175,14 +169,46 @@ namespace main_savitch_11
 
         bool empty() const { return data_count == 0; }
 
-        void printData()
+        void print(int depth = 0)
         {
-            std::cout << "[";
-            for (int i = 0; i < data_count; i++)
+            std::cout << std::setw(4 * depth) << "";
+            if (is_leaf())
             {
-                std::cout << data[i] << " ";
+                std::cout << "[";
+                for (int i = 0; i < data_count; i++)
+                {
+                    if(i == data_count - 1)
+                    {
+                        std::cout << data[i];
+                    }
+                    else
+                    {
+                        std::cout << data[i] << " ";
+                    }
+                }
+                std::cout << "]"; 
+                std::cout << " [leaf]" << std::endl;
             }
-            std::cout << "]" << std::endl;
+            else
+            {
+                std::cout << "[";
+                for (int i = 0; i < data_count; i++)
+                {
+                    if(i == data_count - 1)
+                    {
+                        std::cout << data[i];
+                    }
+                    else
+                    {
+                        std::cout << data[i] << " ";
+                    }
+                }
+                std::cout << "]" << std::endl;
+                for (int i = child_count-1; i >= 0; i--)
+                {
+                   subset[i]->print(depth + 1);
+                }
+            }
         }
 
     private:
@@ -300,7 +326,6 @@ namespace main_savitch_11
             // subset의 가운데 entity를 data에 저장하고
             data[i] = subset[i]->data[midIdx];
             data_count++;
-            std::cout << "data[i]=" << data[i] << std::endl;
 
             // right
             set<Item> *added = new set<Item>();
@@ -309,19 +334,28 @@ namespace main_savitch_11
             {
                 added->data_count++;
                 added->data[newIdx] = subset[i]->data[idx];
-                std::cout << "added->data[newIdx]=" << added->data[newIdx] << std::endl;
                 newIdx++;
             }
-            child_count++;
-            std::cout << "child_count=" << child_count << std::endl;
+            child_count++;;
             subset[child_count - 1] = added;
 
             // left
             subset[i]->data_count = midIdx;
 
-            for (int i = 0; i < child_count; i++)
+            // subset of subset
+            if(subset[i]->child_count != 0)
             {
+                //left
+                int leftSosCnt = subset[i]->data_count + 1;
+                subset[i]->child_count = leftSosCnt;
 
+                // right
+                int rightSosCnt = subset[child_count - 1]->data_count + 1;
+                for (int j = 0, idx = leftSosCnt; idx < rightSosCnt + leftSosCnt; j++, idx++)
+                {
+                    subset[child_count - 1]->subset[j] = subset[i]->subset[idx];
+                    (subset[child_count - 1]->child_count)++;
+                }
             }
         }
 
