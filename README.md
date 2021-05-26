@@ -22,7 +22,7 @@ C++로 구현해보는 자료구조🤠
     특정 노드의 Entry값은 그 노드의 오른쪽 서브 트리의 모든 값들 보다 작다.
 
 - 이진 탐색 트리를 활용한 Bag 클래스 구현<br>
-  [해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/Bag)
+  [해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/Bag/bag6.h)
 <br>
 
 ## Balanced Trees
@@ -65,7 +65,7 @@ B-tree는 Unbalanced Tree 문제를 해결하기 위한 하나의 방안이며 �
     모든 leaf 노드의 depth는 동일하다.
 
 - B-tree를 활용한 Set 클래스 구현<br>
-  [해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/BalancedTrees)
+  [해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/BalancedTrees/set.h)
 
 <br>
 
