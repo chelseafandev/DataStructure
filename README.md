@@ -20,12 +20,28 @@ C++로 구현해보는 자료구조🤠
     특정 노드의 Entry값은 그 노드의 왼쪽 서브 트리의 모든 값들 보다 크거나 같다.
   - 규칙 2.<br>
     특정 노드의 Entry값은 그 노드의 오른쪽 서브 트리의 모든 값들 보다 작다.
+
 - 이진 탐색 트리를 활용한 Bag 클래스 구현<br>
   [해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/Bag)
 <br>
 
 ## Balanced Trees
 ### Heap
+Heap은 strict weak ordering의 less-than 연산자(<)를 통해 비교가 가능한 노드들로 이루어진 이진 트리이며, 아래 2가지 규칙을 따른다.
+- 규칙 1.<br>
+  특정 노드의 Entry 값은 자식 노드의 Entry 값보다는 항상 크다.
+- 규칙 2.<br>
+  Heap은 완전 이진 트리이며, 그렇기 때문에 가장 깊은 레벨을 제외한 모든 레벨은 가능한 많은 노드를 포함하고 있어야한다.
+  그리고 가장 깊은 레벨에서 노드들은 왼쪽에서부터 채워져 나간다.
+
+> strict weak ordering 이란? <br>
+> 어떤 이항연산 R에 대해서, 다음의 4가지 조건을 만족하면 strict weak ordering을 만족하는 관계라고 할 수 있다. <br>
+> 1. 비반사성(irreflexivity): 모든 x에 대해 R(x, x)는 거짓
+> 2. 비대칭성(asymmetry): 모든 x, y에 대해 R(x, y)가 참이면 R(y, x)는 거짓
+> 3. 추이성(transitivity): 모든 x, y, z에 대해 R(x, y)와 R(y, z)가 참이면 R(x, z)는 참
+> 4. 비비교성의 추이성(transitivity of incomparability): 모든 x, y, z에 대해 R(x, y)와 R(y, x)가 거짓이고 R(y, z)와 R(z, y)가 거짓이면 R(x, z)와 R(z, x)는 거짓
+<br>
+
 ### B-Trees
 B-tree는 Unbalanced Tree 문제를 해결하기 위한 하나의 방안이며 이진 트리와 비슷하지만 *2개 이상의 자식 노드를 가질 수 있다*는 점과 각각의 *노드가 한 개 이상의 Entry를 가질 수 있다*는데 차이가 있다.
 
