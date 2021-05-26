@@ -48,6 +48,9 @@ B-tree는 Unbalanced Tree 문제를 해결하기 위한 하나의 방안이며 �
   - 규칙 6.<br>
     모든 leaf 노드의 depth는 동일하다.
 
+- B-tree를 활용한 Set 클래스 구현<br>
+  [해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/BalancedTrees)
+
 <br>
 
 ## Graph
