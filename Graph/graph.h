@@ -74,7 +74,7 @@ namespace main_savitch_15
         // NOTE: This function differs from the other operator [ ] because its return value is
         // simply a copy of the Item (rather than a reference of type Item&). Since this function
         // returns only a copy of the Item, it is a const member function.
-        Item operator[](std::size_t vertext) const
+        Item operator[](std::size_t vertex) const
         {
             return labels[vertex];
         }
