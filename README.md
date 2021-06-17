@@ -8,9 +8,13 @@ C++로 구현해보는 자료구조🤠
     - [Heap](#heap)
     - [B-Trees](#b-trees)
   - [Graph](#graph)
+    - [Graph Implementations](#graph-implementations)
+      - [Adjacency Matrix](#adjacency-matrix)
+      - [Linked List](#linked-list)
+      - [Set](#set)
     - [Graph Traversals](#graph-traversals)
-      - [DFS](#dfs)
-      - [BFS](#bfs)
+      - [DFS(using a stack)](#dfsusing-a-stack)
+      - [BFS(using a queue)](#bfsusing-a-queue)
     - [Path Algorithn](#path-algorithn)
 
 ## Trees
@@ -71,10 +75,20 @@ B-tree는 Unbalanced Tree 문제를 해결하기 위한 하나의 방안이며 �
 
 ## Graph
 
+### Graph Implementations
+#### Adjacency Matrix
+![](resources/images/graph_adjacency_matrix.PNG)
+인접 행렬은 그래프의 edge들을 true/false라는 값으로 표현하는 정사각형의 격자이다. 만약 그래프가 n개의 vertex들을 포함하고 있다면, 이 인접행렬은 n개의 열과 행을 갖는다. i와 j 2개의 vertex에 대해 vertext i에서 vertex j로 가는 edge가 존재한다면 (i, j) 항목의 값이 true이고, 그렇지 않다면 false이다.<br>
+
+#### Linked List
+![](resources/images/graph_linked_list.PNG)
+
+#### Set
+
 ### Graph Traversals
+![](resources/images/graph_traversal.PNG)
+#### DFS(using a stack)
 
-#### DFS
-
-#### BFS
+#### BFS(using a queue)
 
 ### Path Algorithn
