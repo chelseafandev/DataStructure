@@ -3,6 +3,7 @@
 #include "BinaryTreeNode/bintree.h"
 #include "Bag/bag6.h"
 #include "BalancedTrees/set.h"
+#include "Graph/graph.h"
 
 void testBag()
 {
@@ -96,9 +97,33 @@ void testSet()
     mySet.print();
 }
 
+
+void testGraph()
+{
+    main_savitch_15::graph<int> myGraph;
+    myGraph.add_vertex(0);
+    myGraph.add_vertex(1);
+    myGraph.add_vertex(2);
+    myGraph.add_vertex(3);
+    myGraph.add_vertex(4);
+    myGraph.add_vertex(5);
+    myGraph.add_vertex(6);
+    
+    myGraph.add_edge(0, 1);
+    myGraph.add_edge(0, 4);
+    myGraph.add_edge(1, 3);
+    myGraph.add_edge(2, 0);
+    myGraph.add_edge(3, 5);
+    myGraph.add_edge(3, 6);
+    myGraph.add_edge(6, 1);
+
+    
+}
+
 int main()
 {
     //testBag();
-    testSet();
+    //testSet();
+    testGraph();
     return 0;
 }
