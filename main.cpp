@@ -3,7 +3,8 @@
 #include "BinaryTreeNode/bintree.h"
 #include "Bag/bag6.h"
 #include "BalancedTrees/set.h"
-#include "Graph/graph.h"
+//#include "Graph/graph.h"
+#include "Graph/graphtraversal.h"
 
 void testBag()
 {
@@ -117,7 +118,7 @@ void testGraph()
     myGraph.add_edge(3, 6);
     myGraph.add_edge(6, 1);
 
-    
+    depth_first(myGraph, 0);
 }
 
 int main()
