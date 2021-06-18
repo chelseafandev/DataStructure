@@ -3,12 +3,13 @@
 #include "graph.h"
 #include <vector>
 #include <stack>
+#include <queue>
 
 template <typename Item>
-void depth_first(main_savitch_15::graph<Item>& g, std::size_t start)
+void depth_first_search(main_savitch_15::graph<Item>& g, std::size_t start)
 {
     bool *dfs_vertex_mark = new bool[g.size()];
-    for(int i = 0; i < g.size(); i++)
+    for (int i = 0; i < g.size(); i++)
     {
         dfs_vertex_mark[i] = false;
     }
@@ -23,9 +24,8 @@ void depth_first(main_savitch_15::graph<Item>& g, std::size_t start)
 
     // start vertex
     Item start_vertex = g[start];
-    std::cout << start_vertex << std::endl;
 
-    std::cout << "[";
+    std::cout << "depth first search : [";
     dfs_stack.push(start);
     while (!dfs_stack.empty())
     {
@@ -52,7 +52,47 @@ void depth_first(main_savitch_15::graph<Item>& g, std::size_t start)
 }
 
 template <typename Item>
-void breadth_first(main_savitch_15::graph<Item>& g, std::size_t start)
+void breadth_first_search(main_savitch_15::graph<Item>& g, std::size_t start)
 {
+    bool *bfs_vertex_mark = new bool[g.size()];
+    for (int i = 0; i < g.size(); i++)
+    {
+        bfs_vertex_mark[i] = false;
+    }
 
+    std::queue<Item> bfs_queue;
+
+    if (g.size() == 0)
+    {
+        std::cout << "graph is empty" << std::endl;
+        return;
+    }
+
+    // start vertex
+    Item start_vertex = g[start];
+
+    std::cout << "breadth first search : [";
+    bfs_queue.push(start);
+    while (!bfs_queue.empty())
+    {
+        Item front = bfs_queue.front();
+        bfs_queue.pop();
+        bfs_vertex_mark[front] = true;
+        std::cout << g[front] << ", ";
+
+        std::set<std::size_t> neighbors_set = g.neighbors(front);
+        typename std::set<std::size_t>::iterator itr;
+        for (itr = neighbors_set.begin(); itr != neighbors_set.end(); itr++)
+        {
+            if (bfs_vertex_mark[*itr] == false)
+            {
+                bfs_queue.push(*itr);
+            }
+        }
+    }
+    std::cout << "]" << std::endl;
+    
+    delete[] bfs_vertex_mark;
+
+    return;
 }

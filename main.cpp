@@ -118,7 +118,8 @@ void testGraph()
     myGraph.add_edge(3, 6);
     myGraph.add_edge(6, 1);
 
-    depth_first(myGraph, 0);
+    depth_first_search(myGraph, 0);
+    breadth_first_search(myGraph, 0);
 }
 
 int main()
