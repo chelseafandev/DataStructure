@@ -88,7 +88,9 @@ B-tree는 Unbalanced Tree 문제를 해결하기 위한 하나의 방안이며 �
 ### Graph Traversals
 ![](resources/images/graph_traversal.PNG)
 #### DFS(using a stack)
+[해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/Graph/graphtraversal.h)
 
 #### BFS(using a queue)
+[해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/Graph/graphtraversal.h)
 
 ### Path Algorithn
