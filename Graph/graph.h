@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cstdlib> // Provides size_t
 #include <iostream>
 #include <set>
@@ -102,15 +104,15 @@ namespace main_savitch_15
         // Precondition: (vertex < size( )).
         // Postcondition: The return value is a set that contains all the vertex numbers of
         // vertices that are the target of an edge whose source is at the specified vertex.
-        std::set<std::size_t> neighbors(std::size_t vertext) const
+        std::set<std::size_t> neighbors(std::size_t vertex) const
         {
             std::set<std::size_t> result;
             
-            if (vertext < size())
+            if (vertex < size())
             {
                 for (std::size_t i = 0; i < size(); i++)
                 {
-                    if (edges[vertext][i])
+                    if (edges[vertex][i])
                     {
                         result.insert(i);
                     }
