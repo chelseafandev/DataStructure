@@ -18,8 +18,8 @@ namespace main_savitch_15
         }
 
         // Precondition: size( ) < MAXIMUM.
-        // Postcondition: The size of the graph has been increased by adding
-        // one new vertex. This new vertex has the specified label and no edges.
+        // Postcondition: graph의 크기는 새로운 vertex가 추가됨으로 인해 증가한다. 
+        // 새롭게 추가된 vertex는 특정한 label 값을 갖으며 edge는 없다.
         void add_vertex(const Item &label)
         {
             if (size() < MAXIMUM)
@@ -41,9 +41,8 @@ namespace main_savitch_15
         }
 
         // Precondition: (source < size( )) and (target < size( )).
-        // Postcondition: The graph has all the edges that it originally had, and
-        // also has another edge from the specified source to the specified target.
-        // (If this edge was already present, then the graph is unchanged.)
+        // Postcondition: graph는 기존에 갖고 있던 모든 edge뿐만 아니라 특정 source에서 target으로 향하는 또 다른 edge를 포함한다.
+        // (추가하려는 edge가 이미 존재한다면 graph에 변화는 없다.)
         void add_edge(std::size_t source, std::size_t target)
         {
             if (source < size() && target < size())
@@ -53,9 +52,8 @@ namespace main_savitch_15
         }
 
         // Precondition: (source < size( )) and (target < size( )).
-        // Postcondition: The graph has all the edges that it originally had except for the edge
-        // from the specified source to the specified target. (If this edge was not originally
-        // present, then the graph is unchanged.)
+        // Postcondition: graph는 특정 source에서 target으로 향하는 edge를 제외한 기존에 갖고 있던 모든 edge를 포함한다.
+        // (만약 삭제하려는 edge가 존재하지 않는다면 graph에 변화는 없다.)
         void remove_edge(std::size_t source, std::size_t target)
         {
             if (source < size() && target < size())
@@ -65,17 +63,14 @@ namespace main_savitch_15
         }
 
         // Precondition: vertex < size( ).
-        // Postcondition: The return value is a reference to the label of the specified vertex.
+        // Postcondition: 반환 값은 특정 vertex 라벨의 참조 값이다.
         Item &operator[](std::size_t vertex)
         {
             return labels[vertex];
         }
 
         // Precondition: vertex < size( ).
-        // Postcondition: The return value is a reference to the label of the specified vertex.
-        // NOTE: This function differs from the other operator [ ] because its return value is
-        // simply a copy of the Item (rather than a reference of type Item&). Since this function
-        // returns only a copy of the Item, it is a const member function.
+        // Postcondition: 반환 값은 Item의 복사본(참조 값이 아닌) 이다. 이 함수는 단지 Item의 복사본을 반환하므로 const 멤버 함수이다.
         Item operator[](std::size_t vertex) const
         {
             return labels[vertex];
@@ -87,8 +82,7 @@ namespace main_savitch_15
         }
 
         // Precondition: (source < size( )) and (target < size( )).
-        // Postcondition: The return value is true if the graph has an edge from source to target.
-        // Otherwise the return value is false.
+        // Postcondition: 반환 값은 source에서 target으로 향하는 edge가 존재한다면 true이고 그렇지 않다면 false이다.
         bool is_edge(std::size_t source, std::size_t target) const
         {
             if (source < size() && target < size())
@@ -102,8 +96,7 @@ namespace main_savitch_15
         }
 
         // Precondition: (vertex < size( )).
-        // Postcondition: The return value is a set that contains all the vertex numbers of
-        // vertices that are the target of an edge whose source is at the specified vertex.
+        // Postcondition: 반환 값은 source를 특정 vertex로 하는 모든 edge의 target vertex값들의 집합(set)이다.
         std::set<std::size_t> neighbors(std::size_t vertex) const
         {
             std::set<std::size_t> result;
