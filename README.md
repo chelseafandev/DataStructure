@@ -16,6 +16,7 @@ C++로 구현해보는 자료구조🤠
       - [DFS(using a stack)](#dfsusing-a-stack)
       - [BFS(using a queue)](#bfsusing-a-queue)
     - [Path Algorithn](#path-algorithn)
+  - [Hash](#hash)
 
 ## Trees
 ### Binary Search Trees
@@ -94,3 +95,8 @@ B-tree는 Unbalanced Tree 문제를 해결하기 위한 하나의 방안이며 �
 [해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/Graph/graphtraversal.h)
 
 ### Path Algorithn
+
+<br>
+
+## Hash
+어떠한 정보를 저장하는 공간이 있다고 가정해보자. 그리고 이 공간에는 고유한 key값을 갖는 레코드들이 저장된다고 하자. 각각의 레코드들은 일정 크기의 공간을 할당받고, 이 공간을 인덱스값으로 구분한다. 레코드의 key값을 통해 각각의 저장 공간 인덱스를 찾아가는 것을 hashing한다라고 말하며 이때 key값과 인덱스값을 맵핑해주는 함수를 hash function이라고 한다.
