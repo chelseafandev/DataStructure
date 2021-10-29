@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -static -Wl,--gc-sections -DDEBUG -DLINKER_FLAGS -rdynamic CMakeFiles/datastructure-1.0.out.dir/main.cpp.o  -o Debug/datastructure-1.0.out  -L/usr/local/lib/boost -Wl,-rpath,/usr/local/lib/boost -lpthread 

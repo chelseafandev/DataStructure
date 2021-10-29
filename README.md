@@ -75,6 +75,21 @@ B-tree는 Unbalanced Tree 문제를 해결하기 위한 하나의 방안이며 �
   [해당 페이지 참조](https://github.com/junhaeng90/DataStructure/tree/main/BalancedTrees/set.h)
 
 ### Red-Black Tree
+Red-Black Tree는 아래 5가지 추가적인 특징을 갖는 Binary Search Tree이다.
+ - 특성1. 모든 노드는 red거나 black이다.
+ - 특성2. root 노드는 black이다.
+ - 특성3. 모든 null 노드는 black이다.(여기서 null 노드란 leaf 노드이며 어떠한 key도 가지고 있지 않은 노드이다. 우리가 red-black tree에 존재하지 않는 키를 찾으려고 할 때, null 노드에 도달하게 된다.)
+ - 특성4. 만약 노드가 red라면, 두 자식 노드들은 모두 black이다. 이것은 path위에있는 어떠한 2개의 노드도 둘 다 red 노드가 될 수 없다는 것을 의미한다.
+ - 특성5. root에서 null 노드까지의 모든 path는 동일한 개수의 black 노드를 갖는다.
+
+![](resources/images/red-black-tree-example.png)
+
+red-black tree의 삽입과 삭제 과정에서 위의 조건들이 지켜지지않는 경우가 발생할 수 있는데, 이때는 아래 3가지 방식을 사용하여 red-black tree의 구조를 적절히 변경하여 조건을 만족할 수 있도록 유지해야한다.
+  - Left-Rotation
+    ![](resources/images/red-black-tree-left-rotation.png)
+  - Right-Rotation
+    ![](resources/images/red-black-tree-right-rotation.png)
+  - Recolor
 
 
 <br>
@@ -110,3 +125,13 @@ B-tree는 Unbalanced Tree 문제를 해결하기 위한 하나의 방안이며 �
 
 ## Hash
 어떠한 정보를 저장하는 공간이 있다고 가정해보자. 그리고 이 공간에는 고유한 key값을 갖는 레코드들이 저장된다고 하자. 각각의 레코드들은 일정 크기의 공간을 할당받고, 이 공간을 인덱스값으로 구분한다. 레코드의 key값을 통해 각각의 저장 공간 인덱스를 찾아가는 것을 hashing한다라고 말하며 이때 key값과 인덱스값을 맵핑해주는 함수를 hash function이라고 한다.
+
+
+
+<br>
+<br>
+
+Reference
+- https://algorithmtutor.com/Data-Structures/Tree/Red-Black-Trees/
+- https://algorithmtutor.com/Data-Structures/Tree/AVL-Trees/
+- Michael Main, Walter Savitch. (2010). Data Structures & Other Objects Using C++, 4th Edition. Pearson
