@@ -92,30 +92,21 @@ namespace main_savitch_10
     public:
         // 별칭 선언
         using value_type = Item;
+        
+        binary_tree_node(const Item &init_data = Item(), binary_tree_node *init_left = nullptr, binary_tree_node *init_right = nullptr);
 
-        // 생성자
-        binary_tree_node(const Item &init_data = Item(), binary_tree_node *init_left = nullptr, binary_tree_node *init_right = nullptr)
-        {
-            data_field = init_data;
-            left_field = init_left;
-            right_field = init_right;
-        }
+        Item &data();
+        binary_tree_node *&left();
+        binary_tree_node *&right();
+        void set_data(const Item &new_data);
+        void set_left(binary_tree_node *new_left);
+        void set_right(binary_tree_node *new_right);
 
-        // 수정(MODIFICATION)을 위한 멤버 함수
-        // 포인터를 반환하는 멤버 함수가 존재하는 경우에는 그것과 대응되는 const 버전도 만들어 주는게 일반적이다.
-        Item &data() { return data_field; }
-        binary_tree_node *&left() { return left_field; }
-        binary_tree_node *&right() { return right_field; }
-        void set_data(const Item &new_data) { data_field = new_data; }
-        void set_left(binary_tree_node *new_left) { left_field = new_left; }
-        void set_right(binary_tree_node *new_right) { right_field = new_right; }
-
-        // 상수(CONST) 멤버 함수
-        const Item &data() const { return data_field; }
-        const binary_tree_node *left() const { return left_field; }
-        const binary_tree_node *right() const { return right_field; }
-        bool is_leaf() const { return (left_field == nullptr) && (right_field == nullptr); }
-
+        const Item &data() const;
+        const binary_tree_node *left() const;
+        const binary_tree_node *right() const;
+        bool is_leaf() const;
+        
     private:
         Item data_field;
         binary_tree_node *left_field;
@@ -227,3 +218,5 @@ namespace main_savitch_10
     }
 }
 #endif
+
+#include "bintree.impl.h"
