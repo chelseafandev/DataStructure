@@ -8,6 +8,8 @@ C++로 구현해보는 자료구조🤠
     - [Heap](#heap)
     - [B-Trees](#b-trees)
     - [Red-Black Tree](#red-black-tree)
+      - [Insertion](#insertion)
+      - [Deletion](#deletion)
     - [AVL Tree](#avl-tree)
   - [Graph](#graph)
     - [Graph Implementations](#graph-implementations)
@@ -85,12 +87,53 @@ Red-Black Tree는 아래 5가지 추가적인 특징을 갖는 Binary Search Tre
 ![](resources/images/red-black-tree-example.png)
 
 red-black tree의 삽입과 삭제 과정에서 위의 조건들이 지켜지지않는 경우가 발생할 수 있는데, 이때는 아래 3가지 방식을 사용하여 red-black tree의 구조를 적절히 변경하여 조건을 만족할 수 있도록 유지해야한다.
-  - Left-Rotation
+  - Left-Rotation <br>
     ![](resources/images/red-black-tree-left-rotation.png)
-  - Right-Rotation
+  - Right-Rotation <br>
     ![](resources/images/red-black-tree-right-rotation.png)
   - Recolor
 
+<br>
+
+삽입과 삭제를 제외한 모든 연산은 일반적인 이진 탐색 트리와 정확히 동일하다. red-black 트리의 모든 연산은 **O(logn)**의 시간복잡도를 갖는다.
+> All the operations except insertion and deletion are exactly the same as the operations in the ordinary binary search tree. All the operations in a red-black tree take O(logn) to run.
+
+<bt>
+
+#### Insertion
+노드 K를 red-black 트리 T에 삽입하는 과정
+1) 일반적인 이진 탐색 트리와 동일한 삽입 과정을 수행
+2) 노드 K의 색깔은 red
+3) red-black 트리 특성 위반 여부를 확인. 위반한다면 수정
+
+<br>
+
+case 1. red-black 트리 T가 비어있는 경우
+red-black 트리 T가 비어있는 경우에는 노드 K를 red-black 트리 T의 root로 만들고 색깔은 black으로 한다.
+
+case 2. 부모 노드 P의 색깔이 black인 경우
+노드 K의 부모 노드 P의 색깔이 black인 경우에는 red-black 트리의 특성을 위반하지 않기때문에 더이상 해줄게 없다.
+
+case 3. 부모 노드 P의 색깔이 red인 경우
+부모 노드 P의 색깔이 red인 경우는 특성 4번을 위반(부모와 자식의 색깔이 둘다 red이므로)하게 된다. 삽입 연산 전의 red-black 트리는 반드시 유효해야하기때문에 조부모 노드 G의 색깔은 반드시 black(조부모 노드 G의 색깔이 red라면 두 자식 노드 모두 black이어야 하므로)이어야 한다. 해당 케이스를 해결하기 위해서는 노드 K의 삼촌 노드 U가 red인지 black인지 확인해봐야한다.
+
+case 3-1. 부모 노드 P가 red이고 삼촌 노드 U가 red인 경우
+해당 경우에는 부모 노드 P, 삼촌 노드 U, 조부모 노드 G의 색깔을 뒤집어야 한다. 즉, 부모 노드 P는 black, 삼촌 노드 U는 black, 조부모 노드 G는 red가 된다. <br>
+![](resources/images/red-black-tree-case-3-1.png) <br>
+해당 경우에 주의해야할 점은 조부모 노드 G가 red-black 트리 T의 root인 경우이다. 조부모 노드 G가 root인 경우에는 특성 2번에 의해 색깔 뒤집기가 불가능하다.
+
+case 3-2. 부모 노드 P가 red이고 삼촌 노드 U가 black 또는 null인 경우
+
+
+case 3-2-1. 부모 노드 P가 조부모 노드 G의 오른쪽 자식 노드이고 노드 K가 부모 노드 P의 오른쪽 자식 노드인 경우
+
+case 3-2-2. 부모 노드 P가 조부모 노드 G의 오른쪽 자식 노드이고 노드 K가 부모 노드 P의 왼쪽 자식 노드인 경우
+
+case 3-2-3. 부모 노드 P가 조부모 노드 G의 왼쪽 자식 노드이고 노드 K가 부모 노드 P의 왼쪽 자식 노드인 경우
+
+case 3-2-4. 부모 노드 P가 조부모 노드 G의 왼쪽 자식 노드이고 노드 K가 부모 노드 P의 오른쪽 자식 노드인 경우
+
+#### Deletion
 
 <br>
 
