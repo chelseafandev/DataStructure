@@ -123,15 +123,21 @@ case 3-1. 부모 노드 P가 red이고 삼촌 노드 U가 red인 경우
 해당 경우에 주의해야할 점은 조부모 노드 G가 red-black 트리 T의 root인 경우이다. 조부모 노드 G가 root인 경우에는 특성 2번에 의해 색깔 뒤집기가 불가능하다.
 
 case 3-2. 부모 노드 P가 red이고 삼촌 노드 U가 black 또는 null인 경우
-
+이 경우는 case 3-1 보다 조금 더 복잡하다. 만약 삼촌 노드 U가 black이라면, 노드 K가 부모 노드 P의 왼쪽 자식인지 오른쪽 자식인지에 따라 1번 내지 2번의 트리 회전이 필요하다.
 
 case 3-2-1. 부모 노드 P가 조부모 노드 G의 오른쪽 자식 노드이고 노드 K가 부모 노드 P의 오른쪽 자식 노드인 경우
+우리는 먼저 조부모 노드 G를 노드 K의 새로운 형제 노드 S로 만들기 위해 조부모 노드 G에서의 왼쪽 회전을 수행한다. 다음으로 우리는 형제 노드 S의 색깔을 red로 부모 노드 P의 색깔을 black으로 변경한다. <br>
+![](resources/images/red-black-tree-case-3-2-1.png)
 
 case 3-2-2. 부모 노드 P가 조부모 노드 G의 오른쪽 자식 노드이고 노드 K가 부모 노드 P의 왼쪽 자식 노드인 경우
+이 경우에는 부모 노드 P에서 오른쪽 회전을 먼저 수행한다. 이를 통해 case 3-2-1의 형태로 만들어낼 수 있다. case 3-2-1와 동일하게 트리를 수정하면된다.
+![](resources/images/red-black-tree-case-3-2-2.png)
 
 case 3-2-3. 부모 노드 P가 조부모 노드 G의 왼쪽 자식 노드이고 노드 K가 부모 노드 P의 왼쪽 자식 노드인 경우
+This is the mirror of case 3-2-1. Therefore the solution is symmetric to the solution of case 3-2-1.
 
 case 3-2-4. 부모 노드 P가 조부모 노드 G의 왼쪽 자식 노드이고 노드 K가 부모 노드 P의 오른쪽 자식 노드인 경우
+This is the mirror of case 3-2-2. Therefore, the solution is symmetric to the solution of case 3-2-2.
 
 #### Deletion
 
