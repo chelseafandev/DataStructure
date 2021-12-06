@@ -25,22 +25,21 @@ void depth_first_search(main_savitch_15::graph<Item>& g, std::size_t start)
     // start vertex
     Item start_vertex = g[start];
 
-    std::cout << "depth first search : [";
+    std::cout << "depth first search : [ ";
     dfs_stack.push(start);
     while (!dfs_stack.empty())
     {
         Item top = dfs_stack.top();
         dfs_stack.pop();
         dfs_vertex_mark[top] = true;
-        std::cout << g[top] << ", ";
+        std::cout << g[top] << " ";
 
-        std::set<std::size_t> neighbors_set = g.neighbors(top);
-        typename std::set<std::size_t>::iterator itr;
-        for (itr = neighbors_set.begin(); itr != neighbors_set.end(); itr++)
+        auto neighbors_set = g.neighbors(top);
+        for(const auto& neighbor : neighbors_set)
         {
-            if (dfs_vertex_mark[*itr] == false)
+            if (dfs_vertex_mark[neighbor] == false)
             {
-                dfs_stack.push(*itr);
+                dfs_stack.push(neighbor);
             }
         }
     }
@@ -71,22 +70,21 @@ void breadth_first_search(main_savitch_15::graph<Item>& g, std::size_t start)
     // start vertex
     Item start_vertex = g[start];
 
-    std::cout << "breadth first search : [";
+    std::cout << "breadth first search : [ ";
     bfs_queue.push(start);
     while (!bfs_queue.empty())
     {
         Item front = bfs_queue.front();
         bfs_queue.pop();
         bfs_vertex_mark[front] = true;
-        std::cout << g[front] << ", ";
+        std::cout << g[front] << " ";
 
-        std::set<std::size_t> neighbors_set = g.neighbors(front);
-        typename std::set<std::size_t>::iterator itr;
-        for (itr = neighbors_set.begin(); itr != neighbors_set.end(); itr++)
+        auto neighbors_set = g.neighbors(front);
+        for (const auto& neighbor : neighbors_set)
         {
-            if (bfs_vertex_mark[*itr] == false)
+            if (bfs_vertex_mark[neighbor] == false)
             {
-                bfs_queue.push(*itr);
+                bfs_queue.push(neighbor);
             }
         }
     }
